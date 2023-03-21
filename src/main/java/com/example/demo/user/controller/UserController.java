@@ -1,34 +1,24 @@
-package com.example.demo.controller;
+package com.example.demo.user.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.demo.entity.User;
-import com.example.demo.service.UserService;
+import com.example.demo.user.entity.User;
+import com.example.demo.user.service.UserService;
 
-/**
- * ユーザー情報 Controller
- */
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
-  /**
-   * ユーザー情報 Service
-   */
   @Autowired
   UserService userService;
 
-  /**
-   * ユーザー情報一覧画面を表示
-   * @param model Model
-   * @return ユーザー情報一覧画面のHTML
-   */
-  @RequestMapping(value = "/user/list", method = RequestMethod.GET)
+  @GetMapping("list")
   public String displayList(Model model) {
     List<User> userlist = userService.searchAll();
     model.addAttribute("userlist", userlist);
