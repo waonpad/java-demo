@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class TodoUpdateForm {
+  
   private Long id;
   private String content;
   private Date deadline;

@@ -59,15 +59,15 @@ public class TodoController {
   }
 
   @PostMapping("create")
-  public String execCreate(Model model, @RequestBody TodoCreateForm request) {
-    todoService.create(request);
+  public String execCreate(Model model, @RequestBody TodoCreateForm form) {
+    todoService.create(form);
 
     return REDIRECT_URL;
   }
 
   @PostMapping("update")
-  public String execUpdate(Model model, @RequestBody TodoUpdateForm request) {
-    todoService.update(request);
+  public String execUpdate(Model model, @RequestBody TodoUpdateForm form) {
+    todoService.update(form);
 
     return REDIRECT_URL;
   }

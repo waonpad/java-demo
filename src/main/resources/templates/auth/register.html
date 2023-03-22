@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>登録ページ</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+</head>
+<body>
+  <h1>登録ページ</h1>
+  <p th:if="${param.error}" class="error">
+    入力不備
+  </p>
+  <form method="post" action="index.html" th:action="@{/auth/register}">
+    <span th:if="${#fields.hasErrors('passwordValid')}" th:errors="*{passwordValid}"></span>
+    ユーザー名: <input type="text" name="name" min="4" max="20" required><br>
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    メール： <input type="text" name="email" min="4" required><br>
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+    パスワード: <input type="password" name="password" min="8" required><br>
+    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+    確認： <input type="password" name="confirmPassword" min="8" required><br>
+    <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></span>
+    <button type="submit">登録</button>
+  </form>
+</body>
+</html>

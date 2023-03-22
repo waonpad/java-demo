@@ -30,9 +30,9 @@ public class Todo extends BaseEntity {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToMany
@@ -41,10 +41,7 @@ public class Todo extends BaseEntity {
       joinColumns = @JoinColumn(name = "todo_id"),
       inverseJoinColumns = @JoinColumn(name = "helper_id")
     )
-    private List<User> helperList;
-
-    @Column(name = "user_id")
-    private Long userId;
+    private List<User> helpers;
 
     @Column(name = "content")
     private String content;
