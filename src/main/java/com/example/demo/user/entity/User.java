@@ -44,8 +44,11 @@ public class User extends BaseEntity {
   @JoinColumn(name = "role_id", nullable = false)
   private Role role;
 
-  @Column(name = "name")
-  private String name;
+  @Column(name = "roleName") // Spring Securityで使用するのでとりあえず設定
+  private String roleName;
+
+  @Column(name = "userName")
+  private String userName;
 
   @Column(name = "password")
   private String password;
