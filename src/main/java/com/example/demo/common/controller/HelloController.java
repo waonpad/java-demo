@@ -10,12 +10,7 @@ public class HelloController {
   public String index() {
     return "index";
   }
-
-  @GetMapping("/login")
-  public String login() {
-    return "login";
-  }
-
+  
   @GetMapping("/general")
   public String general() {
     return "general";

@@ -10,10 +10,10 @@
   <p th:if="${param.error}" class="error">
     入力不備
   </p>
-  <form method="post" action="index.html" th:action="@{/auth/register}">
+  <form method="post" th:action="@{/auth/register}" th:object="${form}">
     <span th:if="${#fields.hasErrors('passwordValid')}" th:errors="*{passwordValid}"></span>
-    ユーザー名: <input type="text" name="name" min="4" max="20" required><br>
-    <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
+    ユーザー名: <input type="text" name="username" min="4" max="20" required><br>
+    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
     メール： <input type="text" name="email" min="4" required><br>
     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
     パスワード: <input type="password" name="password" min="8" required><br>

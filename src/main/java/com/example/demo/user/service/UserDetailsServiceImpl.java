@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import com.example.demo.user.entity.User;
 import com.example.demo.user.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional(rollbackOn = Exception.class)
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired

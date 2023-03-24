@@ -40,15 +40,18 @@ public class User extends BaseEntity {
   @ManyToMany(mappedBy = "helpers")
   private List<Todo> helpers;
 
-  @ManyToOne
-  @JoinColumn(name = "role_id", nullable = false)
-  private Role role;
+  @ManyToMany(mappedBy = "roleUsers")
+  private List<Role> roleUsers;
 
-  @Column(name = "roleName") // Spring Securityで使用するのでとりあえず設定
-  private String roleName;
+  // @ManyToOne
+  // @JoinColumn(name = "role_id", nullable = false)
+  // private Role role;
 
-  @Column(name = "userName")
-  private String userName;
+  // @Column(name = "roleName") // Spring Securityで使用するのでとりあえず設定
+  // private String roleName;
+
+  @Column(name = "username")
+  private String username;
 
   @Column(name = "password")
   private String password;

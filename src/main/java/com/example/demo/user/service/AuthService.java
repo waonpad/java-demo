@@ -25,7 +25,7 @@ public class AuthService {
 		String hashedPassword = passwordEncoder.encode(form.getPassword());
 
     User user = new User();
-    user.setUserName(form.getUserName());
+    user.setUsername(form.getUsername());
     user.setEmail(form.getEmail());
     user.setPassword(hashedPassword);
 
@@ -40,8 +40,5 @@ public class AuthService {
     if (!passwordEncoder.matches(form.getPassword(), user.getPassword())) {
       throw new RuntimeException("Password is incorrect");
     }
-  }
-
-  public void logout() {
   }
 }
