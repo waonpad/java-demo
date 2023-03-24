@@ -28,13 +28,16 @@ public class SecurityConfig {
                       .failureUrl("/auth/login?error") // ログイン失敗時の遷移先
                       .permitAll() // ログインページは誰でもアクセス可能
       ).logout(logout -> logout
+                      .logoutUrl("/auth/logout") // ログアウト処理のパス
                       .logoutSuccessUrl("/") // ログアウト後の遷移先
       ).authorizeHttpRequests(authz -> authz
                       .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // 静的リソースへのアクセスは認可不要
-                      .requestMatchers("/").permitAll() // トップページは認可不要
+                      .requestMatchers("/").permitAll() // トップページは誰でもアクセス可能
+                      .requestMatchers("/auth/register").permitAll() // 登録ページは誰でもアクセス可能
                       .requestMatchers("/general").hasRole("GENERAL") // 一般ユーザーのみアクセス可能
                       .requestMatchers("/admin").hasRole("ADMIN") // 管理者のみアクセス可能
-                      .anyRequest().authenticated() // それ以外は認証が必要
+                      // .anyRequest().authenticated() // それ以外は認証が必要
+                      .anyRequest().permitAll() // テスト用
       ).exceptionHandling(handling -> handling
                       .accessDeniedPage("/accessDenied") // アクセス拒否された時に遷移するパス
       );

@@ -3,7 +3,8 @@ package com.example.demo.user.service;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
+// import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.demo.user.entity.User;
@@ -11,9 +12,11 @@ import com.example.demo.user.entity.User;
 public class UserDetailsImpl implements UserDetails {
   
   private final User user;
+  private final Collection<? extends GrantedAuthority> authorities;
 
   public UserDetailsImpl(User user) {
     this.user = user;
+    this.authorities = user.getRoleUsers().stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
   }
 
   // public User getUser() { // --- Entityである Userを返却するメソッド
@@ -22,7 +25,8 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() { // --- ユーザに与えられている権限リストを返却するメソッド
-    return AuthorityUtils.createAuthorityList("ROLE_" + this.user.getRoleName());
+    // return AuthorityUtils.createAuthorityList("ROLE_" + this.user.getRoleName());
+    return this.authorities;
   }
 
   @Override
@@ -32,7 +36,7 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public String getUsername() { // --- 登録されているユーザ名を返却するメソッド
-    return this.user.getUserName();
+    return this.user.getUsername();
   }
 
 

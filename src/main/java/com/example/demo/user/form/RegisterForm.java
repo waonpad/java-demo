@@ -12,7 +12,7 @@ public class RegisterForm {
 
   @NotBlank
   @Size(min = 4, max = 20)
-  private String userName;
+  private String username;
 
   @NotBlank
   @Email

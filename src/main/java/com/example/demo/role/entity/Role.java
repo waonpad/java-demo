@@ -12,7 +12,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
+// import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import lombok.Data;
@@ -29,13 +30,14 @@ public class Role extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   
-  @OneToMany
+  // @OneToMany
+  @ManyToMany
   @JoinTable(
     name = "user_role",
     joinColumns = @JoinColumn(name = "role_id"),
     inverseJoinColumns = @JoinColumn(name = "user_id")
   )
-  private List<User> users;
+  private List<User> roleUsers;
 
   @Column(name = "name")
   private String name;
