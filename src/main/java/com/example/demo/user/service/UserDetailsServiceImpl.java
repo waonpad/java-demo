@@ -26,6 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if(user == null) {
 			throw new UsernameNotFoundException("Not Found");
 		}
+
 		return new UserDetailsImpl(user); // UserDetailsの実装クラスを生成
 	}
 }

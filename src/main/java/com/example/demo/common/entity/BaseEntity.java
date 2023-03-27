@@ -1,50 +1,37 @@
 package com.example.demo.common.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-/**
- * テーブルの共通項目を定義したクラスです。</br>
- * 全てのEntityクラスはこのクラスを継承して作成します。
- */
 @MappedSuperclass
 @Data
 public class BaseEntity {
 
-  /** データ登録日時 */
-  @Column(name = "created_at")
-  @Temporal(TemporalType.DATE)
-  private Date createdAt;
+  @Column(name = "created_at", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+  @NotNull
+  private LocalDateTime createdAt;
 
-  /** データ更新日時 */
-  @Column(name = "updated_at")
-  @Temporal(TemporalType.DATE)
-  private Date updatedAt;
+  @Column(name = "updated_at", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+  @NotNull
+  private LocalDateTime updatedAt;
 
-  /**
-   * データ登録前に共通的に実行されるメソッド
-   */
   @PrePersist
   public void preInsert() {
-    Date date = new Date();
+    LocalDateTime date = LocalDateTime.now();
     setCreatedAt(date);
     setUpdatedAt(date);
   }
 
-  /**
-   * データ更新前に共通的に実行されるメソッド
-   */
   @PreUpdate
   public void preUpdate() {
-    setUpdatedAt(new Date());
+    LocalDateTime date = LocalDateTime.now();
+    setUpdatedAt(date);
   }
 
 }

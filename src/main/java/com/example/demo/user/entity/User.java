@@ -1,5 +1,6 @@
 package com.example.demo.user.entity;
 
+import java.util.ArrayList;
 // import java.util.Date;
 import java.util.List;
 
@@ -15,11 +16,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -35,27 +37,34 @@ public class User extends BaseEntity {
   private Long id;
 
   @OneToMany(mappedBy = "user")
-  private List<Todo> todos;
+  private List<Todo> todos = new ArrayList<>(); // 初期化でnullを回避
 
-  @ManyToMany(mappedBy = "helpers")
-  private List<Todo> helpers;
+  @ManyToMany
+  @JoinTable(
+    name = "todo_helper",
+    joinColumns = @JoinColumn(name = "helper_id"),
+    inverseJoinColumns = @JoinColumn(name = "todo_id")
+  )
+  private List<Todo> helpTodos = new ArrayList<>();
 
-  @ManyToMany(mappedBy = "roleUsers")
-  private List<Role> roleUsers;
+  // @ManyToMany(mappedBy = "users")
+  @ManyToMany
+  @JoinTable(
+    name = "user_role",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id")
+  )
+  private List<Role> roles = new ArrayList<>();
 
-  // @ManyToOne
-  // @JoinColumn(name = "role_id", nullable = false)
-  // private Role role;
-
-  // @Column(name = "roleName") // Spring Securityで使用するのでとりあえず設定
-  // private String roleName;
-
-  @Column(name = "username")
+  @Column(name = "username", unique = true)
+  @NotNull
   private String username;
 
   @Column(name = "password")
+  @NotNull
   private String password;
 
-  @Column(name = "email")
+  @Column(name = "email", unique = true)
+  @NotNull
   private String email;
 }

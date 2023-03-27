@@ -1,5 +1,6 @@
 package com.example.demo.role.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.common.entity.BaseEntity;
@@ -15,7 +16,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 // import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -37,8 +38,9 @@ public class Role extends BaseEntity {
     joinColumns = @JoinColumn(name = "role_id"),
     inverseJoinColumns = @JoinColumn(name = "user_id")
   )
-  private List<User> roleUsers;
+  private List<User> users = new ArrayList<>();
 
-  @Column(name = "name")
+  @Column(name = "name", unique = true)
+  @NotNull
   private String name;
 }

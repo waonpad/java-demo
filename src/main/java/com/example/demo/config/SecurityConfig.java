@@ -34,12 +34,16 @@ public class SecurityConfig {
                       .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // 静的リソースへのアクセスは認可不要
                       .requestMatchers("/").permitAll() // トップページは誰でもアクセス可能
                       .requestMatchers("/auth/register").permitAll() // 登録ページは誰でもアクセス可能
-                      .requestMatchers("/general").hasRole("GENERAL") // 一般ユーザーのみアクセス可能
+                      .requestMatchers("/general").hasRole("USER") // 一般ユーザーのみアクセス可能
                       .requestMatchers("/admin").hasRole("ADMIN") // 管理者のみアクセス可能
-                      // .anyRequest().authenticated() // それ以外は認証が必要
-                      .anyRequest().permitAll() // テスト用
+                      .anyRequest().authenticated() // それ以外は認証が必要
+                      // .anyRequest().permitAll() // テスト用
       ).exceptionHandling(handling -> handling
-                      .accessDeniedPage("/accessDenied") // アクセス拒否された時に遷移するパス
+                      .accessDeniedPage("/403") // アクセス拒否された時に遷移するパス
+      ).rememberMe(rememberMe -> rememberMe
+                      .key("remember-me") // RememberMeのキー
+                      .rememberMeParameter("remember-me") // RememberMeのリクエストパラメータ名
+                      .tokenValiditySeconds(86400) // RememberMeの有効期限(秒)
       );
     return http.build();
   }
