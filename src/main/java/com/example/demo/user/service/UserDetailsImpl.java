@@ -16,12 +16,12 @@ public class UserDetailsImpl implements UserDetails {
 
   public UserDetailsImpl(User user) {
     this.user = user;
-    this.authorities = user.getRoleUsers().stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
+    this.authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
   }
 
-  // public User getUser() { // --- Entityである Userを返却するメソッド
-  //   return user;
-  // }
+  public User getUser() { // --- Entityである Userを返却するメソッド
+    return user;
+  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() { // --- ユーザに与えられている権限リストを返却するメソッド

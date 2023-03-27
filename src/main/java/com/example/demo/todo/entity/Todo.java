@@ -1,6 +1,7 @@
 package com.example.demo.todo.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.common.entity.BaseEntity;
@@ -16,7 +17,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -41,14 +42,17 @@ public class Todo extends BaseEntity {
       joinColumns = @JoinColumn(name = "todo_id"),
       inverseJoinColumns = @JoinColumn(name = "helper_id")
     )
-    private List<User> helpers;
+    private List<User> helpers = new ArrayList<>();
 
     @Column(name = "content")
+    @NotNull
     private String content;
 
     @Column(name = "deadline")
-    private Date deadline;
+    @NotNull
+    private LocalDateTime deadline;
 
     @Column(name = "done")
+    @NotNull
     private Boolean done;
 }
