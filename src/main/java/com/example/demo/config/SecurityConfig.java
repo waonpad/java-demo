@@ -24,7 +24,7 @@ public class SecurityConfig {
                       .loginPage("/auth/login") // ログインページのパス
                       .usernameParameter("username") // ユーザー名のリクエストパラメータ名
                       .passwordParameter("password") // パスワードのリクエストパラメータ名
-                      .defaultSuccessUrl("/") // ログイン成功時の遷移先
+                      .defaultSuccessUrl("/general") // ログイン成功時の遷移先
                       .failureUrl("/auth/login?error") // ログイン失敗時の遷移先
                       .permitAll() // ログインページは誰でもアクセス可能
       ).logout(logout -> logout

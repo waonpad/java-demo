@@ -30,8 +30,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	// implementation 'org.flywaydb:flyway-core'
 	// implementation 'org.flywaydb:flyway-mysql'
-	compileOnly 'org.springframework.security:spring-security-web'
-	compileOnly 'org.springframework.security:spring-security-config'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java:8.0.32' // バージョンを指定したら動いた
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
