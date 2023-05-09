@@ -27,32 +27,32 @@ import lombok.EqualsAndHashCode;
 @Table(name = "todo")
 public class Todo extends BaseEntity {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+  @Id
+  @Column(name = "id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  
+  @ManyToOne
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
 
-    @ManyToMany
-    @JoinTable(
-      name = "todo_helper",
-      joinColumns = @JoinColumn(name = "todo_id"),
-      inverseJoinColumns = @JoinColumn(name = "helper_id")
-    )
-    private List<User> helpers = new ArrayList<>();
+  @ManyToMany
+  @JoinTable(
+    name = "todo_helper",
+    joinColumns = @JoinColumn(name = "todo_id"),
+    inverseJoinColumns = @JoinColumn(name = "helper_id")
+  )
+  private List<User> helpers = new ArrayList<>();
 
-    @Column(name = "content")
-    @NotNull
-    private String content;
+  @Column(name = "content")
+  @NotNull
+  private String content;
 
-    @Column(name = "deadline")
-    @NotNull
-    private LocalDate deadline;
+  @Column(name = "deadline")
+  @NotNull
+  private LocalDate deadline;
 
-    @Column(name = "done")
-    @NotNull
-    private Boolean done;
+  @Column(name = "done")
+  @NotNull
+  private Boolean done;
 }

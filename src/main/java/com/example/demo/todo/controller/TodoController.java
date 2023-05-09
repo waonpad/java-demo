@@ -71,17 +71,6 @@ public class TodoController {
 
   @PostMapping("update")
   public String execUpdate(Model model, @ModelAttribute("form") @Validated TodoUpdateForm form, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-    // String content = form.getContent();
-
-    // // 文字コードをUTF-8に変換
-    // try {
-    //   content = new String(content.getBytes("ISO-8859-1"), "UTF-8");
-    // } catch (Exception e) {
-    //   e.printStackTrace();
-    // }
-
-    // System.out.println("こんてんつ: " + content);
-
     todoService.update(form, userDetails.getUser());
 
     return REDIRECT_URL;
