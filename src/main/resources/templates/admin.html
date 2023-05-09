@@ -3,13 +3,13 @@
 <head>
   <title>管理者ページ</title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
   <h1>管理者ページ</h1>
   <p>ようこそ<span sec:authentication="principal.user.username">管理者</span>さん</p>
-  <a href="index.html" th:href="@{/}">トップページへ</a>
-  <form method="post" action="index.html" th:action="@{/logout}">
+  <a th:href="@{/}">トップページへ</a>
+  <form method="post" th:action="@{/auth/logout}">
     <button type="submit">ログアウト</button>
   </form>
 </body>

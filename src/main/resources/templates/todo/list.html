@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <title>Todo List</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
   <h1>Todo List</h1>
+  <a th:href="@{/todo/create}">新規作成</a>
+  <a th:href="@{/}">トップページへ</a>
   <table>
     <thead>
       <tr>
@@ -14,20 +18,31 @@
       </tr>
     </thead>
     <tbody>
-      <tr th:each="todo : ${todolist}">
-        <a th:href="|/todo/detail/${todo.id}|">
-          <td th:text="${todo.id}"></td>
-          <td th:text="${todo.user_id}"></td>
-          <td th:text="${todo.content}"></td>
-          <td th:text="${todo.deadline}"></td>
-          <td th:text="${todo.done}"></td>
-          <!-- 削除ボタン -->
+      <tr th:each="todo : ${todolist}" th:object="${todo}">
+          <td th:text="*{id}"></td>
+          <td th:text="*{user.id}"></td>
+          <td th:text="*{content}"></td>
+          <td th:text="*{deadline}"></td>
+          <td th:text="*{done}"></td>
+          <!-- 詳細 -->
           <td>
-            <form action="|/todo/delete/${todo.id}|" method="post">
+            <a th:href="@{|/todo/detail/*{id}|}">詳細</a>
+          </td>
+          <!-- 更新ボタン -->
+          <td th:if="${todo.user.id == #authentication.principal.user.id}">
+            <a th:href="@{|/todo/update/*{id}|}">更新</a>
+          </td>
+          <!-- 削除ボタン -->
+          <td th:if="${todo.user.id == #authentication.principal.user.id}">
+            <form th:action="@{|/todo/delete/*{id}|}" method="post">
               <input type="submit" value="削除">
             </form>
           </td>
-        </a>
+          <!-- 完了ボタン -->
+          <td th:if="${todo.user.id == #authentication.principal.user.id}">
+            <form th:action="@{|/todo/done/*{id}|}" method="post">
+              <input type="submit" value="完了">
+            </form>
       </tr>
     </tbody>
   </table>

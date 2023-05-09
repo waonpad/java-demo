@@ -1,6 +1,6 @@
 package com.example.demo.todo.form;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import lombok.Data;
 
@@ -9,5 +9,5 @@ public class TodoUpdateForm {
   
   private Long id;
   private String content;
-  private LocalDateTime deadline;
+  private LocalDate deadline;
 }
