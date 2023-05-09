@@ -9,6 +9,7 @@ import com.example.demo.todo.entity.Todo;
 import com.example.demo.todo.form.TodoCreateForm;
 import com.example.demo.todo.form.TodoUpdateForm;
 import com.example.demo.todo.repository.TodoRepository;
+import com.example.demo.user.entity.User;
 import com.example.demo.user.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -33,20 +34,27 @@ public class TodoService {
     return todoRepository.findByUserId(userId);
   }
 
-  public void create(TodoCreateForm form) {
+  public void create(TodoCreateForm form, User user) {
     Todo todo = new Todo();
-    // todo.setUser(form.getUser());
-    todo.setUser(userRepository.findAll().get(0));
+    todo.setUser(user);
     todo.setContent(form.getContent());
     todo.setDeadline(form.getDeadline());
+    todo.setDone(false);
 
     todoRepository.save(todo);
   }
 
-  public void update(TodoUpdateForm form) {
+  public void update(TodoUpdateForm form, User user) {
     Todo todo = todoRepository.findById(form.getId()).get();
+
+    // 作成者と更新者が一致しているかチェック
+    if (todo.getUser().getId() != user.getId()) {
+      throw new RuntimeException("権限がありません");
+    }
+
     todo.setContent(form.getContent());
     todo.setDeadline(form.getDeadline());
+    todo.setDone(false);
 
     todoRepository.save(todo);
   }
@@ -56,5 +64,9 @@ public class TodoService {
     todo.setDone(true);
 
     todoRepository.save(todo);
+  }
+
+  public void delete (Long id) {
+    todoRepository.deleteById(id);
   }
 }

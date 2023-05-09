@@ -1,6 +1,6 @@
 package com.example.demo.todo.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +50,7 @@ public class Todo extends BaseEntity {
 
     @Column(name = "deadline")
     @NotNull
-    private LocalDateTime deadline;
+    private LocalDate deadline;
 
     @Column(name = "done")
     @NotNull
