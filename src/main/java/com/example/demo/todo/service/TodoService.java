@@ -69,4 +69,29 @@ public class TodoService {
   public void delete (Long id) {
     todoRepository.deleteById(id);
   }
+
+  public void help (Long id, User user) {
+    Todo todo = todoRepository.findById(id).get();
+    List<User> helpers = todo.getHelpers();
+
+    if (helpers.stream().map(User::getId).anyMatch(helperId -> helperId == user.getId())) {
+      // throw new RuntimeException("既にヘルプしています");
+      return;
+    }
+
+    helpers.add(user);
+    todo.setHelpers(helpers);
+
+    todoRepository.save(todo);
+  }
+
+  public void unHelp (Long id, User user) {
+    Todo todo = todoRepository.findById(id).get();
+    List<User> helpers = todo.getHelpers();
+
+    helpers.removeIf(helper -> helper.getId().equals(user.getId()));
+    todo.setHelpers(helpers);
+
+    todoRepository.save(todo);
+  }
 }

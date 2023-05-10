@@ -92,6 +92,20 @@ public class TodoController {
     return REDIRECT_URL;
   }
 
+  @PostMapping("help/{id}")
+  public String execHelp(Model model, @PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    todoService.help(id, userDetails.getUser());
+
+    return REDIRECT_URL;
+  }
+
+  @PostMapping("unhelp/{id}")
+  public String execUnHelp(Model model, @PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    todoService.unHelp(id, userDetails.getUser());
+
+    return REDIRECT_URL;
+  }
+
   @GetMapping("user/{userId}")
   public String displayUsersList(Model model, @PathVariable Long userId) {
     List<Todo> todolist = todoService.getTodoListByUserId(userId);

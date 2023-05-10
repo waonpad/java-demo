@@ -10,13 +10,6 @@
   <a th:href="@{/todo/create}">新規作成</a>
   <a th:href="@{/}">トップページへ</a>
   <table>
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Title</th>
-        <th>Completed</th>
-      </tr>
-    </thead>
     <tbody>
       <tr th:each="todo : ${todolist}" th:object="${todo}">
           <td th:text="*{id}"></td>
@@ -39,10 +32,24 @@
             </form>
           </td>
           <!-- 完了ボタン -->
-          <td th:if="${todo.user.id == #authentication.principal.user.id}">
+          <td th:if="${(todo.user.id == #authentication.principal.user.id || todo.helpers.![id].contains(#authentication.principal.user.id)) && todo.done == false}">
             <form th:action="@{|/todo/done/*{id}|}" method="post">
               <input type="submit" value="完了">
             </form>
+          </td>
+          <!-- 完了したラベル -->
+          <td th:if="${todo.done == true}">
+            済み
+          </td>
+          <!-- 助けるボタン -->
+          <td th:if="${todo.user.id != #authentication.principal.user.id && todo.done == false}">
+            <form th:if="${todo.helpers.![id].contains(#authentication.principal.user.id)}" th:action="@{|/todo/unhelp/*{id}|}" method="post">
+              <input type="submit" value="助けるのをやめる">
+            </form>
+            <form th:if="${!todo.helpers.![id].contains(#authentication.principal.user.id)}" th:action="@{|/todo/help/*{id}|}" method="post">
+              <input type="submit" value="助ける">
+            </form>
+          </td>
       </tr>
     </tbody>
   </table>
