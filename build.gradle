@@ -49,3 +49,10 @@ tasks.named('test') {
 // 	password = ''
 // 	schemas = ['java_sample']
 // }
+
+jar {
+	// plainは不要
+  enabled = false
+}
+
+// mysqlサーバーを起動しておかないとビルドエラーが出る！
